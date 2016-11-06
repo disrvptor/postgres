@@ -28,4 +28,6 @@ RUN apt-get update && \
 	apt-get autoremove -y \
 	make \
 	gcc \
+	flex \
+	bison \
 	git
