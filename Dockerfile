@@ -22,4 +22,10 @@ RUN apt-get update && \
 	export CPPFLAGS="-DDOCKER" && \
 	./configure --with-openssl --exec-prefix=/usr/lib/postgresql/9.6/ && \
 	make && \
-	make install
+	make install && \
+	cd /root && \
+	rm -fr postgres && \
+	apt-get autoremove -y \
+	make \
+	gcc \
+	git
