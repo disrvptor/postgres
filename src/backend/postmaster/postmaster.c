@@ -825,6 +825,11 @@ PostmasterMain(int argc, char *argv[])
 		ExitPostmaster(1);
 	}
 
+    /* Auto-select not to use fsync when in docker mode */
+#ifdef DOCKER
+    SetConfigOption("fsync", "false", PGC_POSTMASTER, PGC_S_ARGV);
+#endif
+
 	/*
 	 * Locate the proper configuration files and data directory, and read
 	 * postgresql.conf for the first time.
