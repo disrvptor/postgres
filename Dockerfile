@@ -9,12 +9,17 @@ RUN apt-get update && \
 	flex \
 	bison \
 	perl \
+	libreadline-dev \
+	zlib1g-dev \
+	libssl-dev \
 	git && \
 	cd /root && \
 	mkdir src && \
 	cd $_ && \
-	git clone --depth 1 --branch REL9_6_1 https://github.com/postgres/postgres.git && \
+	git clone --depth 1 --branch REL9_6_STABLE https://github.com/disrvptor/postgres.git && \
 	cd postgres && \
-	./configure --with-openssl && \
+	export CFLAGS="-DDOCKER" && \
+	export CPPFLAGS="-DDOCKER" && \
+	./configure --with-openssl --exec-prefix=/usr/lib/postgresql/9.6/ && \
 	make && \
 	make install
