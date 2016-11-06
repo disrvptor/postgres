@@ -222,7 +222,7 @@ be_tls_init(void)
 		 *
 		 * XXX surely we can check this on Windows somehow, too.
 		 */
-#if !defined(WIN32) && !defined(__CYGWIN__)
+#if !defined(WIN32) && !defined(__CYGWIN__) && !defined(DOCKER)
 		if (buf.st_uid != geteuid() && buf.st_uid != 0)
 			ereport(FATAL,
 					(errcode(ERRCODE_CONFIG_FILE_ERROR),
@@ -241,7 +241,7 @@ be_tls_init(void)
 		 * of a reasonable check to apply on Windows.  (See also the data
 		 * directory permission check in postmaster.c)
 		 */
-#if !defined(WIN32) && !defined(__CYGWIN__)
+#if !defined(WIN32) && !defined(__CYGWIN__) && !(DOCKER)
 		if ((buf.st_uid == geteuid() && buf.st_mode & (S_IRWXG | S_IRWXO)) ||
 			(buf.st_uid == 0 && buf.st_mode & (S_IWGRP | S_IXGRP | S_IRWXO)))
 			ereport(FATAL,
